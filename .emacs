@@ -125,7 +125,11 @@
 (setq truncate-partial-width-windows nil)
 (split-window-horizontally)
 
-; Define tab-4
-  (setq tab-width 4
-        indent-tabs-mode nil)
+; Define 4-sized General Tab
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+(setq indent-line-function 'insert-tab)
+
+; Define 4-sized C/C++ Tab
+(setq-default c-basic-offset 4)
 
