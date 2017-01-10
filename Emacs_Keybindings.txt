@@ -56,3 +56,25 @@ ALT-.            Reflow a commment.
 ALT-[            Begin recording a macro.
 ALT-]            End recording a macro.
 ALT-'            Replay a keyboard macro.
+
+Example: Replace "a_main" with "main_a"  (and all other simila combos [b_main -> main_b, c_main -> main_c, etc]
+
+ALT-[
+C-S main
+C- <-
+Delete "_"
+Mark [C-SPC]
+Cut "a" [C-W]
+C- ->
+"_"
+C-f (paste)
+ALT-]
+---------
+Replay: ALT-'
+
+
+
+
+
+
+
