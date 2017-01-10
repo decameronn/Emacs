@@ -1,0 +1,58 @@
+QUICK REFERENCE GUIDE FOR .EMACS KEYBINDINGS (BY CASEY)
+-------------------------------------------------------
+
+***** GENERAL KEYS *****
+
+ALT-F            Find (open) file. [BCKSPC] up one directory
+ALT-SHIFT-F      Open the file in the other window. 
+
+ALT-S            Save the file in the current window.
+
+TAB              Cycles through completions of a word.
+
+ALT-B            Switch to buffer in the current window.
+ALT-SHIFT-B      Switch to buffer in the other window.
+ALT-W            Toggles between buffers.
+ALT-K            Kills the buffer (asks for save).
+
+
+***** SPECIFIC KEYS *****
+
+ALT-C            Toggles between .CPP and .H files.
+ALT-SHIFT-C      Toggles between .CPP and .H files in the other window.
+
+ALT-M            Triggers the Compiler. (looks for and executes a build.bat)
+  ALT-N          Next error after compile.
+  ALT-SHIFT-N    Previous error after compile.
+
+CTRL-SPACE       Mark is set (like a reference point to an action).
+CTRL-TAB         Reindents de block.
+CTRL-Q           Copies the block.
+CTRL-W           Cuts the block.
+CTRL-F           Pastes the block.
+
+ALT-U            Undo.
+                  1. undo chain
+                  2. press any key to break Undo chain
+                  3. undo again, to redo chain (sort of)
+
+ALT-SHIFT-;      Pops back to the previous mark locations.
+
+ALT-J            Jumps to a function by name.
+ALT-G            Jumps to a line number.
+
+CTRL-S           Starts incremential Search.
+  CTRL-S         Moves to the next occurence.
+  CTRL-R         Moves to the previous occurence.
+
+ALT-O            Query replace.
+ALT-L            Replace inside a block (even when pasting blocks).
+
+ALT-.            Reflow a commment.
+
+
+***** KEYBOARD MACROS *****
+
+ALT-[            Begin recording a macro.
+ALT-]            End recording a macro.
+ALT-'            Replay a keyboard macro.
