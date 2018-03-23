@@ -29,6 +29,12 @@
 
 (global-hl-line-mode 1)
 
+(ac-config-default)
+(global-auto-complete-mode t)
+(add-hook 'c++-mode
+  (lambda ()
+    (add-to-list 'ac-sources 'ac-source-semantic)))
+
 (defun move-line-up ()
   "Move up the current line."
   (interactive)
@@ -83,7 +89,10 @@ there's a region, all lines that region covers will be duplicated."
    [default default default italic underline success warning error])
  '(ansi-color-names-vector
    ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
- '(custom-enabled-themes (quote (manoj-dark))))
+ '(custom-enabled-themes (quote (manoj-dark)))
+ '(custom-safe-themes
+   (quote
+    ("df9ec2cdcdd01a7a6ebc4be112a02086b61c1b1c41f3b562e9c300c66c0c43b6" "4066d52698f681d6a111c8f8920a2fd311552cb53d1ac65fc6d87b6c87dcc89a" default))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
