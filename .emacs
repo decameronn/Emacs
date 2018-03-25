@@ -1,25 +1,52 @@
-;; (split-window-horizontally)
-
-
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
+(require 'package)
 (package-initialize)
+
+;; (split-window-horizontally)
 
 (global-set-key (kbd "C-x <up>") 'windmove-up)
 (global-set-key (kbd "C-x <down>") 'windmove-down)
 (global-set-key (kbd "C-x <right>") 'windmove-right)
 (global-set-key (kbd "C-x <left>") 'windmove-left)
 
-;; miscelaneous
+;; A better C-x C-f
+(load-library "view")
+(require 'cc-mode)
+(require 'ido)
+(require 'compile)
+(ido-mode t)
+
+;; Miscelaneous
 (blink-cursor-mode 0)
 (setq scroll-step 3)
 (setq ring-bell-function 'ignore)
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 
-;; C++ Begin
+;; Neotree
+(add-to-list 'load-path "../git/neotree")
+(require 'neotree)
+(global-set-key [f8] 'neotree-toggle)
+
+;; ERC
+(setq erc-server "irc.chat.twitch.tv")
+(setq erc-port "6667")
+(setq erc-nick "decameron")  
+(setq erc-password "oauth:4uatymj75cbb6ht982ouw1yfkf8cvc")
+(setq erc-user-full-name "Decameron")
+
+;; Custom Theme
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+(load-file "~/.emacs.d/themes/manoj-dark-theme.el")
+;; Custom Font
+(add-to-list 'default-frame-alist '(font . "Terminus" ))
+(set-face-attribute 'default t :font "Terminus" )
+
+;; Frame configuration at startup: fullscreen & custom size
+;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
+;; (add-to-list 'default-frame-alist '(width . 180))
+;; (add-to-list 'default-frame-alist '(height . 45))
+
+;; C++ begin
 (setq-default c-basic-offset 4)
 (setq c-default-style "bsd")
 
@@ -28,6 +55,8 @@
     (local-set-key (kbd "C-c m d") 'ff-find-other-file)))
 
 (global-hl-line-mode 1)
+
+(setq column-number-mode t)
 
 (ac-config-default)
 (global-auto-complete-mode t)
@@ -79,23 +108,11 @@ there's a region, all lines that region covers will be duplicated."
       (goto-char (+ origin (* (length region) arg) arg)))))
 (global-set-key (kbd "C-c d") 'duplicate-current-line-or-region)
 
+;; 80 column ruler
+;; (require 'fill-column-indicator)
+;; (setq fci-rule-column 80)
+;; (setq fci-rule-width 1)
+;; (setq fci-rule-color "#121212")
+
 ;; C++ End
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-   [default default default italic underline success warning error])
- '(ansi-color-names-vector
-   ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
- '(custom-enabled-themes (quote (manoj-dark)))
- '(custom-safe-themes
-   (quote
-    ("df9ec2cdcdd01a7a6ebc4be112a02086b61c1b1c41f3b562e9c300c66c0c43b6" "4066d52698f681d6a111c8f8920a2fd311552cb53d1ac65fc6d87b6c87dcc89a" default))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "black" :foreground "WhiteSmoke" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "outline" :family "Terminus")))))
+
