@@ -28,11 +28,7 @@
 (global-set-key [f8] 'neotree-toggle)
 
 ;; ERC
-(setq erc-server "irc.chat.twitch.tv")
-(setq erc-port "6667")
-(setq erc-nick "decameron")  
-(setq erc-password "oauth:4uatymj75cbb6ht982ouw1yfkf8cvc")
-(setq erc-user-full-name "Decameron")
+;; Private info
 
 ;; Custom Theme
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
