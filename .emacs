@@ -26,16 +26,21 @@
 (add-to-list 'load-path "../git/neotree")
 (require 'neotree)
 (global-set-key [f8] 'neotree-toggle)
+(setq neo-window-fixed-size nil)
 
 ;; ERC
-;; Private info
+(setq erc-server "")
+(setq erc-port "")
+(setq erc-nick "")  
+(setq erc-password "")
+(setq erc-user-full-name "")
 
 ;; Custom Theme
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 (load-file "~/.emacs.d/themes/manoj-dark-theme.el")
 ;; Custom Font
-(add-to-list 'default-frame-alist '(font . "Terminus" ))
-(set-face-attribute 'default t :font "Terminus" )
+(add-to-list 'default-frame-alist '(font . "Consolas-13" ))
+(set-face-attribute 'default t :font "Consolas-13" )
 
 ;; Frame configuration at startup: fullscreen & custom size
 ;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
