@@ -1,4 +1,5 @@
-QUICK REFERENCE GUIDE FOR .EMACS KEYBINDINGS (BY CASEY)
+-------------------------------------------------------
+CASEY MURATORI .EMACS KEYBINDINGS
 -------------------------------------------------------
 
 ***** GENERAL KEYS *****
