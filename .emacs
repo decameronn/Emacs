@@ -1,14 +1,14 @@
+;; Required for all plugins
 (require 'package)
 (package-initialize)
 
-;; (split-window-horizontally)
-
+;; Move convenienttly between buffers
 (global-set-key (kbd "C-x <up>") 'windmove-up)
 (global-set-key (kbd "C-x <down>") 'windmove-down)
 (global-set-key (kbd "C-x <right>") 'windmove-right)
 (global-set-key (kbd "C-x <left>") 'windmove-left)
 
-;; A better C-x C-f
+;; A better file browser
 (load-library "view")
 (require 'cc-mode)
 (require 'ido)
@@ -21,12 +21,17 @@
 (setq ring-bell-function 'ignore)
 (menu-bar-mode -1)
 (tool-bar-mode -1)
+(split-window-horizontally)
 
 ;; Neotree
 (add-to-list 'load-path "../git/neotree")
 (require 'neotree)
 (global-set-key [f8] 'neotree-toggle)
 (setq neo-window-fixed-size nil)
+
+;; Evil
+(require 'evil)
+  (evil-mode 1)
 
 ;; ERC
 (setq erc-server "")
@@ -35,29 +40,27 @@
 (setq erc-password "")
 (setq erc-user-full-name "")
 
-;; Custom Theme
+;; Custom Theme & Font
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
-(load-file "~/.emacs.d/themes/manoj-dark-theme.el")
-;; Custom Font
-(add-to-list 'default-frame-alist '(font . "Consolas-13" ))
-(set-face-attribute 'default t :font "Consolas-13" )
+(load-file "~/.emacs.d/themes/ir-black-theme.el")
+(add-to-list 'default-frame-alist '(font . "Consolas 14" ))
+(set-face-attribute 'default t :font "Consolas 14" )
 
-;; Frame configuration at startup: fullscreen & custom size
-;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
+;; Frame configuration at startup
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
 ;; (add-to-list 'default-frame-alist '(width . 180))
 ;; (add-to-list 'default-frame-alist '(height . 45))
 
 ;; C++ begin
 (setq-default c-basic-offset 4)
 (setq c-default-style "bsd")
+(show-paren-mode 1)
+(global-hl-line-mode 1)
+(setq column-number-mode t)
 
 (add-hook 'c-mode-common-hook
   (lambda()
     (local-set-key (kbd "C-c m d") 'ff-find-other-file)))
-
-(global-hl-line-mode 1)
-
-(setq column-number-mode t)
 
 (ac-config-default)
 (global-auto-complete-mode t)
@@ -80,8 +83,6 @@
   (indent-according-to-mode))
 (global-set-key (kbd "<M-up>")  'move-line-up)
 (global-set-key (kbd "<M-down>")  'move-line-down)
-
-(show-paren-mode 1)
 
 (setq compile-command "build.bat")
 (add-hook 'c-mode-common-hook
@@ -108,12 +109,5 @@ there's a region, all lines that region covers will be duplicated."
         (setq end (point)))
       (goto-char (+ origin (* (length region) arg) arg)))))
 (global-set-key (kbd "C-c d") 'duplicate-current-line-or-region)
-
-;; 80 column ruler
-;; (require 'fill-column-indicator)
-;; (setq fci-rule-column 80)
-;; (setq fci-rule-width 1)
-;; (setq fci-rule-color "#121212")
-
 ;; C++ End
 
