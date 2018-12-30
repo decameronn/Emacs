@@ -45,6 +45,12 @@
 (setq erc-password "")
 (setq erc-user-full-name "")
 
+;; Highlight TODO, FIXME, etc
+(add-hook 'c-mode-common-hook
+               (lambda ()
+                (font-lock-add-keywords nil
+                 '(("\\<\\(FIXME\\|TODO\\|BUG\\):" 1 font-lock-warning-face t)))))
+
 ;; Custom Theme & Font ( %appdata% = HOME on Windows )
 ;;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 ;;(load-file "~/.emacs.d/themes/deep-thought.el")
