@@ -45,7 +45,7 @@
 (setq erc-password "")
 (setq erc-user-full-name "")
 
-;; Custom Theme & Font
+;; Custom Theme & Font ( %appdata% = HOME on Windows )
 ;;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 ;;(load-file "~/.emacs.d/themes/deep-thought.el")
 (add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono 14" ))
