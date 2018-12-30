@@ -1,12 +1,18 @@
 ;; Required for all plugins
 (require 'package)
 (package-initialize)
-
-;; Move convenienttly between buffers
-(global-set-key (kbd "C-x <up>") 'windmove-up)
-(global-set-key (kbd "C-x <down>") 'windmove-down)
-(global-set-key (kbd "C-x <right>") 'windmove-right)
-(global-set-key (kbd "C-x <left>") 'windmove-left)
+	     
+(ac-config-default)
+(global-auto-complete-mode t)
+(add-hook 'c++-mode
+  (lambda ()
+    (add-to-list 'ac-sources 'ac-source-semantic)))
+    
+;; Move conveniently between buffers
+;; (global-set-key (kbd "C-x <up>") 'windmove-up)
+;; (global-set-key (kbd "C-x <down>") 'windmove-down)
+;; (global-set-key (kbd "C-x <right>") 'windmove-right)
+;; (global-set-key (kbd "C-x <left>") 'windmove-left)
 
 ;; A better file browser
 (load-library "view")
@@ -17,17 +23,16 @@
 
 ;; Miscelaneous
 (blink-cursor-mode 0)
-(setq scroll-step 3)
+(setq scroll-step 1)
 (setq ring-bell-function 'ignore)
 (menu-bar-mode -1)
 (tool-bar-mode -1)
-(split-window-horizontally)
+;;(split-window-horizontally)
+;;(setq-default line-spacing 0)
 
-;; Neotree
-(add-to-list 'load-path "../git/neotree")
-(require 'neotree)
-(global-set-key [f8] 'neotree-toggle)
-(setq neo-window-fixed-size nil)
+;; 80-column limit
+(setq-default auto-fill-function 'do-auto-fill)
+(setq-default fill-column 80)
 
 ;; Evil
 (require 'evil)
@@ -41,32 +46,27 @@
 (setq erc-user-full-name "")
 
 ;; Custom Theme & Font
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
-(load-file "~/.emacs.d/themes/ir-black-theme.el")
-(add-to-list 'default-frame-alist '(font . "Consolas 14" ))
-(set-face-attribute 'default t :font "Consolas 14" )
+;;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+;;(load-file "~/.emacs.d/themes/deep-thought.el")
+(add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono 14" ))
+(set-face-attribute 'default t :font "DejaVu Sans Mono 14" )
 
 ;; Frame configuration at startup
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
-;; (add-to-list 'default-frame-alist '(width . 180))
-;; (add-to-list 'default-frame-alist '(height . 45))
+;;(add-to-list 'default-frame-alist '(fullscreen . maximized))
+;;(add-to-list 'default-frame-alist '(width . 180))
+;;(add-to-list 'default-frame-alist '(height . 45))
 
 ;; C++ begin
-(setq-default c-basic-offset 4)
-(setq c-default-style "bsd")
-(show-paren-mode 1)
-(global-hl-line-mode 1)
-(setq column-number-mode t)
-
 (add-hook 'c-mode-common-hook
   (lambda()
     (local-set-key (kbd "C-c m d") 'ff-find-other-file)))
 
-(ac-config-default)
-(global-auto-complete-mode t)
-(add-hook 'c++-mode
-  (lambda ()
-    (add-to-list 'ac-sources 'ac-source-semantic)))
+(setq-default c-basic-offset 8)
+(setq c-default-style "bsd")
+(setq column-number-mode t)
+;; (show-paren-mode 1)
+;; (global-hl-line-mode 1)
+;; (global-linum-mode t)
 
 (defun move-line-up ()
   "Move up the current line."
@@ -84,15 +84,15 @@
 (global-set-key (kbd "<M-up>")  'move-line-up)
 (global-set-key (kbd "<M-down>")  'move-line-down)
 
-(setq compile-command "build.bat")
+(setq compile-command "compile.bat")
 (add-hook 'c-mode-common-hook
   (lambda()
     (define-key c-mode-base-map (kbd "C-c l") ' compile)))
 
 (defun duplicate-current-line-or-region (arg)
   "Duplicates the current line or region ARG times.
-If there's no region, the current line will be duplicated. However, if
-there's a region, all lines that region covers will be duplicated."
+  If there's no region, the current line will be duplicated. However, if
+  there's a region, all lines that region covers will be duplicated."
   (interactive "p")
   (let (beg end (origin (point)))
     (if (and mark-active (> (point) (mark)))
@@ -110,4 +110,3 @@ there's a region, all lines that region covers will be duplicated."
       (goto-char (+ origin (* (length region) arg) arg)))))
 (global-set-key (kbd "C-c d") 'duplicate-current-line-or-region)
 ;; C++ End
-
