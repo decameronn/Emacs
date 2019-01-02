@@ -63,7 +63,7 @@
 ;;(add-to-list 'default-frame-alist '(width . 180))
 ;;(add-to-list 'default-frame-alist '(height . 45))
 
-;; C++ begin
+;; C++ begin ****************************************************************
 (setq-default c-basic-offset 4)
 (setq c-default-style "bsd")
 (c-set-offset 'case-label '+) ;; switch indentation
@@ -117,4 +117,4 @@
         (setq end (point)))
       (goto-char (+ origin (* (length region) arg) arg)))))
 (global-set-key (kbd "C-c d") 'duplicate-current-line-or-region)
-;; C++ End
+;; C++ End ****************************************************************
