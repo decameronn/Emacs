@@ -66,6 +66,7 @@
 ;; C++ begin
 (setq-default c-basic-offset 4)
 (setq c-default-style "bsd")
+(c-set-offset 'case-label '+) ;; switch indentation
 (setq column-number-mode t)
 (show-paren-mode 1)
 ;; (global-hl-line-mode 1)
