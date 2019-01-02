@@ -2,8 +2,8 @@
 Emacs configuration file
 
 Uses:
-* C/C++ syntax indentation
+* C/C++ syntax tweaks
 * Auto-complete
-* Neotree
-* Theme configuration
-* ERC client
+* Evil
+* Dumb Jump
+* ERC
