@@ -52,6 +52,9 @@
 (setq erc-password "")
 (setq erc-user-full-name "")
 
+;; Dumb-Jump
+;; (dumb-jump-mode)
+
 ;; Custom Theme & Font ( %appdata% = HOME on Windows )
 ;;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 ;;(load-file "~/.emacs.d/themes/deep-thought.el")
