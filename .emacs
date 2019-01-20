@@ -28,6 +28,7 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (fringe-mode 4)
+(setq completion-ignore-case  t) ;; case insensitive minibuffer
 ;;(split-window-horizontally)
 ;;(setq-default line-spacing 0)
 
