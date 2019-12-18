@@ -2,35 +2,27 @@
 (require 'package)
 (package-initialize)
 	     
+;; Auto-complete
+;; Troubleshooting:
+;; https://emacs.stackexchange.com/questions/10480/cannot-install-auto-complete-package
 (ac-config-default)
 (global-auto-complete-mode t)
 (add-hook 'c++-mode
   (lambda ()
     (add-to-list 'ac-sources 'ac-source-semantic)))
     
-;; Move conveniently between buffers
-;; (global-set-key (kbd "C-x <up>") 'windmove-up)
-;; (global-set-key (kbd "C-x <down>") 'windmove-down)
-;; (global-set-key (kbd "C-x <right>") 'windmove-right)
-;; (global-set-key (kbd "C-x <left>") 'windmove-left)
-
-;; A better file browser
-(load-library "view")
-(require 'cc-mode)
-(require 'ido)
-(require 'compile)
-(ido-mode t)
-
 ;; Miscelaneous
 (blink-cursor-mode 0)
 (setq scroll-step 1)
 (setq ring-bell-function 'ignore)
-(menu-bar-mode -1)
+;;(menu-bar-mode -1)
 (tool-bar-mode -1)
 (fringe-mode 4)
-(setq completion-ignore-case  t) ;; case insensitive minibuffer
+(setq completion-ignore-case  t)
 ;;(split-window-horizontally)
 ;;(setq-default line-spacing 0)
+;;(global-hl-line-mode 1)
+;;(global-linum-mode t)
 
 ;; 80-column limit
 (setq-default auto-fill-function 'do-auto-fill)
@@ -40,10 +32,6 @@
 (setq backup-directory-alist `(("." . "~/.emacs.d/backup-files")))
 
 ;; Highlight TODO, FIXME, etc
-;;(add-hook 'c-mode-common-hook
-;;  (lambda ()
-;;    (font-lock-add-keywords nil
-;;      '(("\\<\\(FIXME\\|TODO\\|BUG\\):" 1 font-lock-warning-face t)))))
 (setq fixme-modes '(c++-mode c-mode emacs-lisp-mode))
 (make-face 'font-lock-fixme-face)
 (make-face 'font-lock-note-face)
@@ -56,39 +44,53 @@
 (modify-face 'font-lock-fixme-face "#cc1c1c" nil nil t nil t nil nil)
 (modify-face 'font-lock-note-face "#0c8e17" nil nil t nil t nil nil)
 
-;; Evil
+;; Evil-mode
 (require 'evil)
   (evil-mode 1)
 
-;; ERC
-(setq erc-server "")
-(setq erc-port "")
-(setq erc-nick "")  
-(setq erc-password "")
-(setq erc-user-full-name "")
 
-;; Dumb-Jump
-;; (dumb-jump-mode)
+;; *** LANGUAGE SPECIFIC CONFIGURATIONS BELOW *** ;;
 
-;; Custom Theme & Font ( %appdata% = HOME on Windows )
-;;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
-;;(load-file "~/.emacs.d/themes/deep-thought.el")
-(add-to-list 'default-frame-alist '(font . "Consolas 15" ))
-(set-face-attribute 'default t :font "Consolas 15" )
+;; HTML, CSS, JS BEGIN ********************************************************
+;; Web-mode: automatically load in related files
+(add-to-list 'auto-mode-alist '("\\.ts\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.css?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
+;; Set indentations (hook is executed when the mode is turned on)
+(defun my-web-mode-hook ()
+  "Hooks for Web mode."
+  (setq web-mode-markup-indent-offset 4)
+  (setq web-mode-code-indent-offset 4)
+  (setq web-mode-css-indent-offset 4)
+)
+(add-hook 'web-mode-hook  'my-web-mode-hook)    
+(setq tab-width 4)
+;; Company-mode settings (css & html completions in web-mode)
+(defun my-web-mode-hook ()
+  (set (make-local-variable 'company-backends) 
+       '(company-css company-web-html company-yasnippet company-files))
+)
+;; Turn on Emmet in web-mode & toggle corresponding mode switch (file type)
+(add-hook 'web-mode-hook  'emmet-mode)
+(add-hook 'web-mode-before-auto-complete-hooks
+    '(lambda ()
+     (let ((web-mode-cur-language
+  	    (web-mode-language-at-pos)))
+               (if (string= web-mode-cur-language "php")
+    	   (yas-activate-extra-mode 'php-mode)
+      	 (yas-deactivate-extra-mode 'php-mode))
+               (if (string= web-mode-cur-language "css")
+    	   (setq emmet-use-css-transform t)
+      	 (setq emmet-use-css-transform nil))))) 
+;; HTML, CSS, JS END **********************************************************
 
-;; Frame configuration at startup
-;;(add-to-list 'default-frame-alist '(fullscreen . maximized))
-;;(add-to-list 'default-frame-alist '(width . 180))
-;;(add-to-list 'default-frame-alist '(height . 45))
-
-;; C++ begin ****************************************************************
+;; C/C++ BEGIN ****************************************************************
 (setq-default c-basic-offset 4)
 (setq c-default-style "bsd")
 (c-set-offset 'case-label '+) ;; switch indentation
 (setq column-number-mode t)
 (show-paren-mode 1)
-;; (global-hl-line-mode 1)
-;; (global-linum-mode t)
 
 (add-hook 'c-mode-common-hook
   (lambda()
@@ -135,4 +137,15 @@
         (setq end (point)))
       (goto-char (+ origin (* (length region) arg) arg)))))
 (global-set-key (kbd "C-c d") 'duplicate-current-line-or-region)
-;; C++ End ****************************************************************
+;; C/C++ END *****************************************************************
+
+
+;; ERC
+;; Sensitive info below!
+;;
+;;
+(setq erc-server "irc.chat.twitch.tv")
+(setq erc-port "6667")
+(setq erc-nick "")  
+(setq erc-password "")
+(setq erc-user-full-name "")
