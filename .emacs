@@ -52,6 +52,7 @@
 ;; *** LANGUAGE SPECIFIC CONFIGURATIONS BELOW *** ;;
 
 ;; HTML, CSS, JS BEGIN ********************************************************
+;; To use web-mode and emmet-mode snippets, press C-j
 ;; Web-mode: automatically load in related files
 (add-to-list 'auto-mode-alist '("\\.ts\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
