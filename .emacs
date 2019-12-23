@@ -52,6 +52,18 @@
 (global-set-key (kbd "C-x <right>") 'windmove-right)
 (global-set-key (kbd "C-x <left>") 'windmove-left)
 
+;; Custom Theme
+;;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+;;(load-file "~/.emacs.d/themes/manoj-dark-theme.el")
+;; Custom Font
+(add-to-list 'default-frame-alist '(font . "Iosevka Term 14" ))
+(set-face-attribute 'default t :font "Iosevka Term 14" )
+
+;; Frame configuration at startup
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+;; (add-to-list 'default-frame-alist '(width . 180))
+;; (add-to-list 'default-frame-alist '(height . 45))
+
 ;; Miscelaneous
 (blink-cursor-mode 0)
 (setq scroll-step 1)
