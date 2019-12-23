@@ -84,12 +84,6 @@
 (modify-face 'font-lock-fixme-face "#cc1c1c" nil nil t nil t nil nil)
 (modify-face 'font-lock-note-face "#0c8e17" nil nil t nil t nil nil)
 
-;; Move conveniently between buffers
-(global-set-key (kbd "C-x <up>") 'windmove-up)
-(global-set-key (kbd "C-x <down>") 'windmove-down)
-(global-set-key (kbd "C-x <right>") 'windmove-right)
-(global-set-key (kbd "C-x <left>") 'windmove-left)
-
 ;; Miscelaneous
 (blink-cursor-mode 0)
 (setq scroll-step 1)
