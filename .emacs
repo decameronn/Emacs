@@ -1,22 +1,63 @@
+;; ********** TIPS, TRICKS, INFO & TROUBLESHOOTING  ********* ;;
+
+;; HOME location under WINDOWS 10:
+;; Emacs (terminal): %userprofile%
+;; Emacs (GUI): %appdata%
+
+;; A peek at Emacs: Rectangular selection
+;; https://emacsredux.com/blog/2014/01/01/a-peek-at-emacs-24-dot-4-rectangular-selection/
+;; https://www.emacswiki.org/emacs/RectangleMark
+;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Rectangles.html
+
+;; Auto-complete Troubleshooting
+;; https://emacs.stackexchange.com/questions/10480/cannot-install-auto-complete-package
+
+;; ******** USEFUL COMMANDS ******** ;;
+;; Select word: C-M-Space
+;; Select between paretheses, brackets, string, etc: C-M-u C-M-Space
+;; Zap until character: C-z / M-z CHAR
+;; Forward/Backwards until character: C-s / C-r CHAR
+;; Delete between mark and character: C-Space C-r CHAR <RET>
+
+;; Rectangles
+;; 1. Select desired columns/rectangle (special mark): C-x-Space
+;; 2. Select what is needed with C-b and C-n
+;; 3. There are multiple options now. All start with C-x r <option>
+;;    To mention a few:
+;;    C-x r d: delete rectangle
+;;    C-x r c: clear rectangle (replace with spaces)
+;;    C-x r M-w : copy selected rectangle
+;;    C-x r t 'string' : replace rectangle with given string
+
 ;; Required for all plugins
 (require 'package)
 (package-initialize)
 	     
 ;; Auto-complete
-;; Troubleshooting:
-;; https://emacs.stackexchange.com/questions/10480/cannot-install-auto-complete-package
 (ac-config-default)
 (global-auto-complete-mode t)
 (add-hook 'c++-mode
   (lambda ()
     (add-to-list 'ac-sources 'ac-source-semantic)))
-    
+
+;; Resize buffers
+(global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
+(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "S-C-<down>") 'shrink-window)
+(global-set-key (kbd "S-C-<up>") 'enlarge-window)
+
+;; Move conveniently between buffers
+(global-set-key (kbd "C-x <up>") 'windmove-up)
+(global-set-key (kbd "C-x <down>") 'windmove-down)
+(global-set-key (kbd "C-x <right>") 'windmove-right)
+(global-set-key (kbd "C-x <left>") 'windmove-left)
+
 ;; Miscelaneous
 (blink-cursor-mode 0)
 (setq scroll-step 1)
 (setq ring-bell-function 'ignore)
 ;;(menu-bar-mode -1)
-(tool-bar-mode -1)
+;;(tool-bar-mode -1)
 (fringe-mode 4)
 (setq completion-ignore-case  t)
 ;;(split-window-horizontally)
@@ -34,7 +75,6 @@
 ;; Highlight TODO, FIXME, etc
 (setq fixme-modes '(c++-mode c-mode emacs-lisp-mode))
 (make-face 'font-lock-fixme-face)
-(make-face 'font-lock-note-face)
 (mapc (lambda (mode)
 	(font-lock-add-keywords
 	 mode
@@ -44,16 +84,51 @@
 (modify-face 'font-lock-fixme-face "#cc1c1c" nil nil t nil t nil nil)
 (modify-face 'font-lock-note-face "#0c8e17" nil nil t nil t nil nil)
 
-;; Evil-mode
-(require 'evil)
-  (evil-mode 1)
+;; Move conveniently between buffers
+(global-set-key (kbd "C-x <up>") 'windmove-up)
+(global-set-key (kbd "C-x <down>") 'windmove-down)
+(global-set-key (kbd "C-x <right>") 'windmove-right)
+(global-set-key (kbd "C-x <left>") 'windmove-left)
+
+;; Miscelaneous
+(blink-cursor-mode 0)
+(setq scroll-step 1)
+(setq ring-bell-function 'ignore)
+;;(menu-bar-mode -1)
+;;(tool-bar-mode -1)
+(fringe-mode 4)
+(setq completion-ignore-case  t)
+;;(split-window-horizontally)
+;;(setq-default line-spacing 0)
+;;(global-hl-line-mode 1)
+;;(global-linum-mode t)
+
+;; 80-column limit
+(setq-default auto-fill-function 'do-auto-fill)
+(setq-default fill-column 80)
+
+;; Backup-files directory
+(setq backup-directory-alist `(("." . "~/.emacs.d/backup-files")))
+
+;; Highlight TODO, FIXME, etc
+(setq fixme-modes '(c++-mode c-mode emacs-lisp-mode))
+(make-face 'font-lock-fixme-face)
+(mapc (lambda (mode)
+	(font-lock-add-keywords
+	 mode
+	 '(("\\<\\(TODO\\|FIXME\\|BUG\\)" 1 'font-lock-fixme-face t)
+	   ("\\<\\(NOTE\\|WORKAROUND\\|IMPROVEMENT\\)" 1 'font-lock-note-face t))))
+      fixme-modes)
+(modify-face 'font-lock-fixme-face "#cc1c1c" nil nil t nil t nil nil)
+(modify-face 'font-lock-note-face "#0c8e17" nil nil t nil t nil nil)
 
 
-;; *** LANGUAGE SPECIFIC CONFIGURATIONS BELOW *** ;;
+
+;; ***** LANGUAGE SPECIFIC CONFIGURATIONS BELOW *** ;;
 
 ;; HTML, CSS, JS BEGIN ********************************************************
-;; To use web-mode and emmet-mode snippets, press C-j
 ;; Web-mode: automatically load in related files
+;; Activate web-mode & emmet-mode snippets, press C-j
 (add-to-list 'auto-mode-alist '("\\.ts\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.css?\\'" . web-mode))
@@ -63,15 +138,13 @@
   "Hooks for Web mode."
   (setq web-mode-markup-indent-offset 4)
   (setq web-mode-code-indent-offset 4)
-  (setq web-mode-css-indent-offset 4)
-)
+  (setq web-mode-css-indent-offset 4))
 (add-hook 'web-mode-hook  'my-web-mode-hook)    
 (setq tab-width 4)
 ;; Company-mode settings (css & html completions in web-mode)
 (defun my-web-mode-hook ()
   (set (make-local-variable 'company-backends) 
-       '(company-css company-web-html company-yasnippet company-files))
-)
+       '(company-css company-web-html company-yasnippet company-files)))
 ;; Turn on Emmet in web-mode & toggle corresponding mode switch (file type)
 (add-hook 'web-mode-hook  'emmet-mode)
 (add-hook 'web-mode-before-auto-complete-hooks
@@ -140,13 +213,14 @@
 (global-set-key (kbd "C-c d") 'duplicate-current-line-or-region)
 ;; C/C++ END *****************************************************************
 
-
 ;; ERC
-;; Sensitive info below!
-;;
-;;
-(setq erc-server "irc.chat.twitch.tv")
-(setq erc-port "6667")
+(setq erc-port "")
 (setq erc-nick "")  
 (setq erc-password "")
 (setq erc-user-full-name "")
+
+
+;; ************* UNUSED PLUGINS *************** ;;
+;; Evil-mode
+;;(require 'evil)
+;;  (evil-mode 1)
