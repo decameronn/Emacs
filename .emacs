@@ -56,8 +56,8 @@
 ;;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 ;;(load-file "~/.emacs.d/themes/manoj-dark-theme.el")
 ;; Custom Font
-(add-to-list 'default-frame-alist '(font . "Iosevka Term 14" ))
-(set-face-attribute 'default t :font "Iosevka Term 14" )
+(add-to-list 'default-frame-alist '(font . "Iosevka Term 16" ))
+(set-face-attribute 'default t :font "Iosevka Term 16" )
 
 ;; Frame configuration at startup
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
@@ -76,9 +76,7 @@
 ;;(setq-default line-spacing 0)
 ;;(global-hl-line-mode 1)
 ;;(global-linum-mode t)
-
-;; 80-column limit
-(setq-default auto-fill-function 'do-auto-fill)
+(setq-default auto-fill-function 'do-auto-fill) ;80 column
 (setq-default fill-column 80)
 
 ;; Backup-files directory
@@ -87,38 +85,7 @@
 ;; Highlight TODO, FIXME, etc
 (setq fixme-modes '(c++-mode c-mode emacs-lisp-mode))
 (make-face 'font-lock-fixme-face)
-(mapc (lambda (mode)
-	(font-lock-add-keywords
-	 mode
-	 '(("\\<\\(TODO\\|FIXME\\|BUG\\)" 1 'font-lock-fixme-face t)
-	   ("\\<\\(NOTE\\|WORKAROUND\\|IMPROVEMENT\\)" 1 'font-lock-note-face t))))
-      fixme-modes)
-(modify-face 'font-lock-fixme-face "#cc1c1c" nil nil t nil t nil nil)
-(modify-face 'font-lock-note-face "#0c8e17" nil nil t nil t nil nil)
-
-;; Miscelaneous
-(blink-cursor-mode 0)
-(setq scroll-step 1)
-(setq ring-bell-function 'ignore)
-;;(menu-bar-mode -1)
-;;(tool-bar-mode -1)
-(fringe-mode 4)
-(setq completion-ignore-case  t)
-;;(split-window-horizontally)
-;;(setq-default line-spacing 0)
-;;(global-hl-line-mode 1)
-;;(global-linum-mode t)
-
-;; 80-column limit
-(setq-default auto-fill-function 'do-auto-fill)
-(setq-default fill-column 80)
-
-;; Backup-files directory
-(setq backup-directory-alist `(("." . "~/.emacs.d/backup-files")))
-
-;; Highlight TODO, FIXME, etc
-(setq fixme-modes '(c++-mode c-mode emacs-lisp-mode))
-(make-face 'font-lock-fixme-face)
+(make-face 'font-lock-note-face)
 (mapc (lambda (mode)
 	(font-lock-add-keywords
 	 mode
@@ -220,6 +187,7 @@
 ;; C/C++ END *****************************************************************
 
 ;; ERC
+(setq erc-server "")
 (setq erc-port "")
 (setq erc-nick "")  
 (setq erc-password "")
