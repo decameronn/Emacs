@@ -3,7 +3,7 @@ Emacs configuration file
 
 Uses:
 * Web-mode, Emmet, Yasnippet
-* C/C++ syntax tweaks
+* C/C++ syntax
 * Auto-complete
 * Evil-mode
 * ERC
