@@ -13,7 +13,6 @@
 ;; https://emacs.stackexchange.com/questions/10480/cannot-install-auto-complete-package
 
 ;; ******** USEFUL COMMANDS ******** ;;
-;; Select word: C-M-Space
 ;; Select between paretheses, brackets, string, etc: C-M-u C-M-Space
 ;; Zap until character: C-z / M-z CHAR
 ;; Forward/Backwards until character: C-s / C-r CHAR
@@ -36,9 +35,6 @@
 ;; Auto-complete
 (ac-config-default)
 (global-auto-complete-mode t)
-(add-hook 'c++-mode
-  (lambda ()
-    (add-to-list 'ac-sources 'ac-source-semantic)))
 
 ;; Resize buffers
 (global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
@@ -65,6 +61,8 @@
 (tool-bar-mode -1)
 (fringe-mode 4)
 (setq completion-ignore-case  t)
+(setq read-file-name-completion-ignore-case t)
+(setq read-buffer-completion-ignore-case t)
 ;;(split-window-horizontally)
 ;;(setq-default line-spacing 0)
 (global-hl-line-mode 1)
@@ -78,7 +76,8 @@
 (setq backup-directory-alist `(("." . "~/.emacs.d/backup-files")))
 
 ;; Highlight TODO, FIXME, etc
-(setq fixme-modes '(c++-mode c-mode emacs-lisp-mode))
+(setq fixme-modes '(c++-mode c-mode emacs-lisp-mode css-mode html-mode
+			     python-mode js-mode))
 (make-face 'font-lock-fixme-face)
 (make-face 'font-lock-note-face)
 (mapc (lambda (mode)
@@ -138,7 +137,7 @@
   (lambda()
     (local-set-key (kbd "C-c m d") 'ff-find-other-file)))
 
-(setq compile-command "compile.bat")
+(setq compile-command "mingw32-make")
 (add-hook 'c-mode-common-hook
   (lambda()
     (define-key c-mode-base-map (kbd "C-c l") ' compile)))
