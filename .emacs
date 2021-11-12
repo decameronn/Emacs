@@ -90,7 +90,6 @@
 (modify-face 'font-lock-note-face "#0c8e17" nil nil t nil t nil nil)
 
 
-
 ;; ***** LANGUAGE SPECIFIC CONFIGURATIONS BELOW *** ;;
 
 ;; HTML, CSS, JS BEGIN ********************************************************
